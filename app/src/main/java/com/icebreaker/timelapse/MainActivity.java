@@ -14,7 +14,6 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,9 +25,19 @@ import android.widget.Toast;
 
 import com.githang.statusbar.StatusBarCompat;
 import com.github.mikephil.charting.charts.PieChart;
-import com.icebreaker.timelapse.util.CustomDate;
-import com.icebreaker.timelapse.util.Util;
-import com.icebreaker.timelapse.view.MyCalendar;
+import com.icebreaker.timelapse.addresspart.MapActivity;
+import com.icebreaker.timelapse.apppart.AppInfo;
+import com.icebreaker.timelapse.apppart.AppInfoHelper;
+import com.icebreaker.timelapse.apppart.AppListActivity;
+import com.icebreaker.timelapse.apppart.AppService;
+import com.icebreaker.timelapse.calendar.util.CustomDate;
+import com.icebreaker.timelapse.calendar.util.Util;
+import com.icebreaker.timelapse.calendar.view.MyCalendar;
+import com.icebreaker.timelapse.util.AlarmUtils;
+import com.icebreaker.timelapse.util.CheckPermissionsActivity;
+import com.icebreaker.timelapse.util.MyDBOpenHelper;
+import com.icebreaker.timelapse.util.PieChartHelper;
+
 import java.util.Calendar;
 import java.util.List;
 
@@ -47,21 +56,14 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
     private BroadcastReceiver updateViewReceiver;
     private Calendar beginCal;
     private MyCalendar myCalendar;
+    private TextView next_page_hint;
+    private ImageView next_page;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-     /*   //检测用户是否对本app开启了“Apps with usage access”权限
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (!hasPermission()) {
-                startActivityForResult(
-                        new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS),
-                        MY_PERMISSIONS_REQUEST_PACKAGE_USAGE_STATS);
-            }
-        }*/
 
         startService(new Intent(MainActivity.this,AppService.class));
         AlarmUtils.setAlarmServiceTime(this, System.currentTimeMillis(), 5 * 1000);
@@ -111,7 +113,10 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
         }
         PieChart pieChart = findViewById(R.id.app_pieChart);
         pieChartHelper = new PieChartHelper(pieChart,appInfos,beginCal);
-
+        TextView textView = (TextView)findViewById(R.id.next_page_hint);
+        textView.setOnClickListener(this);
+        ImageView imageView = (ImageView)findViewById(R.id.next_page);
+        imageView.setOnClickListener(this);
 
     }
 
@@ -285,8 +290,17 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
             case R.id.btnNextMonth:
                 calendar.setCurrentItem(calendar.getCurrentItem() + 1);
                 break;
+            case R.id.next_page_hint:
+                startActivity(new Intent(MainActivity.this,AnalyseActivity.class));
+                finish();
+                break;
+            case R.id.next_page:
+                startActivity(new Intent(MainActivity.this,AnalyseActivity.class));
+                finish();
+                break;
         }
     }
+
     @Override
     public  void onRestart(){
         super.onRestart();
@@ -300,4 +314,5 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
             myDBOpenHelper.close();
         }
     }
+
 }

@@ -1,7 +1,9 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="AppTheme.Base"></style>
+    <style name="AppTheme" parent="AppTheme.Base">
+
+    </style>
 
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light">
 
@@ -18,7 +20,17 @@
         <item name="windowActionBar">false</item>//取消Actionbar
         <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>//设置全屏
+    </style>
+    <style name="AppTheme2" parent="AppTheme.NoActionBarWithBackGround">
+
         <item name="android:windowBackground">@drawable/poster</item>//设置背景
+
+    </style>
+    <style name="AppTheme3" parent="AppTheme.NoActionBarWithBackGround">
+        <item name="windowActionBar">false</item>//取消Actionbar
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>//设置全屏
+
     </style>
 
     <!--Status bar color-->

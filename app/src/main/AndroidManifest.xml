@@ -35,8 +35,8 @@
 
     <!-- 用于读取手机当前的状态 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-   <!-- 开机自启动权限-->
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <!-- 开机自启动权限 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!-- 更改设置 -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
@@ -53,8 +53,9 @@
         android:roundIcon="@drawable/easyicon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StartPosterActivity"
-            android:theme="@style/AppTheme.NoActionBarWithBackGround">
+        <activity
+            android:name=".addresspart.StartPosterActivity"
+            android:theme="@style/AppTheme2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -63,41 +64,55 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme" />
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="86f75187b54f3a6c48e9b2d7d11e0c46" />
+            android:value="77accbd87bc6b444cb1f34aa528394dc" />
         <!-- 定位服务 -->
         <service android:name="com.amap.api.location.APSService" />
         <!-- 启动一个定位服务 -->
 
-        <service android:name=".LocationService" />
-        <service android:name=".AppService" />
+        <service android:name=".addresspart.LocationService" />
+        <service android:name=".apppart.AppService" />
 
         <activity
-            android:name=".AddressActivity"
+            android:name=".addresspart.AddressActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".GraphicActivity"
+            android:name=".addresspart.GraphicActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".MapActivity"
+            android:name=".addresspart.MapActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".AppListActivity"
+            android:name=".apppart.AppListActivity"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".AnalyseActivity"
+            android:theme="@style/AppTheme3" />
+
         <receiver
-            android:name=".BootBroadcastReceiver"
+            android:name=".addresspart.BootBroadcastReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".apppart.StudyStatisticActivity"
+            android:theme="@style/AppTheme3" />
+        <activity
+            android:name=".apppart.WorkStatisticActivity"
+            android:theme="@style/AppTheme3" />
+        <activity android:name=".apppart.PlayStatisticActivity"
+            android:theme="@style/AppTheme3"/>
+        <activity android:name=".apppart.OtherStatisticActivity"
+            android:theme="@style/AppTheme3"></activity>
     </application>
 
 </manifest>

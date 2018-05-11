@@ -9,4 +9,8 @@
     <color name="select_date">#1E90FF</color>
     <color name="parent_background">#F5F5F5</color>
     <color name="divider_color">#DCDCDC</color>
+    <color name="study_color">#00FF7F</color>
+    <color name="work_color">#6495ED</color>
+    <color name="amuse_color">#FF6347</color>
+    <color name="other_color">#FFD700</color>
 </resources>

@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'icebreaker'
+            keyPassword '123456'
+            storeFile file('F:/AndroidWorkSpace/icebreaker.jks')
+            storePassword '123456'
+        }
+    }
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.icebreaker.timelapse"
