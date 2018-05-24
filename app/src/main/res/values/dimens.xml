@@ -24,4 +24,11 @@
     <dimen name="margin_right">15dp</dimen>
     <dimen name="margin_middle">2dp</dimen>
 
+    <!--登录界面-->
+    <dimen name="username">10dp</dimen>
+    <dimen name="password">10dp</dimen>
+    <dimen name="username_size">15dp</dimen>
+    <dimen name="password_size">15dp</dimen>
+    <dimen name="layout_margin">50dp</dimen>
+    <dimen name="layout_margin_top">15dp</dimen>
 </resources>

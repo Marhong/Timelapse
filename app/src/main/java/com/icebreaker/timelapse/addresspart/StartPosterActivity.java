@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.icebreaker.timelapse.MainActivity;
 import com.icebreaker.timelapse.R;
+import com.icebreaker.timelapse.StartPage.LoginActivity;
 
 public class StartPosterActivity extends AppCompatActivity {
 
@@ -18,7 +19,7 @@ public class StartPosterActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
-                Intent mainIntent = new Intent(StartPosterActivity.this,MainActivity.class);
+                Intent mainIntent = new Intent(StartPosterActivity.this,LoginActivity.class);
                 startActivity(mainIntent);
                 finish();
             }

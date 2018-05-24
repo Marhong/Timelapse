@@ -32,7 +32,11 @@
         <item name="android:windowFullscreen">false</item>//设置全屏
 
     </style>
+    <style name="NoTitleBar" parent="AppTheme.Base">
 
+        <item name="windowNoTitle">true</item>
+
+    </style>
     <!--Status bar color-->
     <color name="statusColor">#ff0000</color>
     <!-- toolBar color -->
