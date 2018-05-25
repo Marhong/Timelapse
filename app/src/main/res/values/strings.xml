@@ -44,4 +44,8 @@
     <string name="login">登录</string>
     <!--注册界面-->
     <string name="nextStep">下一步</string>
+    <!--个人中心界面-->
+    <string name="str_record">战绩</string>
+    <string name="str_honor">荣誉</string>
+    <string name="str_today">今日目标</string>
 </resources>

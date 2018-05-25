@@ -3,6 +3,7 @@ package com.icebreaker.timelapse.StartPage;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Handler;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.githang.statusbar.StatusBarCompat;
+import com.icebreaker.timelapse.MainActivity;
 import com.icebreaker.timelapse.R;
 import com.icebreaker.timelapse.internet.HttpGetData;
 
@@ -39,6 +41,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final String ERROR_CODE = "0204";
     private static final int GET_LOGININ_RESULT_DATA = 1;
     private static final String GET_SUCCESS_RESULT = "success";
+    private static final String GET_INCORRECT_RESULT = "incorrect";
+    private SharedPreferences userInf;// 存储个人信息
     private Handler uiHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -57,10 +61,32 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        initViews();
-        setListener();
-    }
 
+        // 判断是否保持登录状态
+        if(!isLogin()){
+            // 如果不是则需要重新输入用户名和密码
+            initViews();
+            setListener();
+        }else{
+            // 如果是则直接进入APP首页
+            startActivity(new Intent(this,MainActivity.class));
+            finish();
+        }
+
+    }
+    
+    /**
+     * 判断用户是否保持登录
+     * @author Marhong
+     * @time 2018/5/25 16:04
+     */
+    private boolean isLogin(){
+        SharedPreferences user = getSharedPreferences("UserInfo",Context.MODE_PRIVATE);
+        if(user.getBoolean("keepLogin",false)){
+            return true;
+        }
+        return false;
+    }
     /**
      * 初始化登录界面所有控件
      *
@@ -68,6 +94,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      * @time 2018/5/25 0:09
      */
     private void initViews() {
+        userInf = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
         mUserName = (EditText) findViewById(R.id.username);
         mPassword = (EditText) findViewById(R.id.password);
         mRegister = (TextView) findViewById(R.id.register);
@@ -105,7 +132,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
     }
-
+    
+    /**
+     * 验证用户登录信息是否正确
+     * @author Marhong
+     * @time 2018/5/25 15:32
+     */
     private void verifyAccount() {
         String userName = mUserName.getText().toString();
         String password = mPassword.getText().toString();
@@ -143,28 +175,47 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void GetDataDetailFromLoginResultData(Object obj) {
         Log.e("result", obj.toString());
         // TODO Auto-generated method stub
-        String Type = null;
-        String Data = null;
         mLogin.setText("登录");
         try {
-            JSONObject demoJson = new JSONObject(obj.toString());
-            Type = demoJson.getString("type");
+            JSONObject result = new JSONObject(obj.toString());
+            String type = result.getString("type");
 
-            if (Type.equals(GET_SUCCESS_RESULT)) {
-                Data = demoJson.getString("data");
+            if (type.equals(GET_SUCCESS_RESULT)) {
                 Toast.makeText(getApplicationContext(), "登陆成功", Toast.LENGTH_SHORT).show();
-            } else if (Type.equals("accountPwdError")) {
+                WriteUserInfo(result);
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+            } else if (type.equals(GET_INCORRECT_RESULT)) {
                 Toast.makeText(getApplicationContext(), "用户名和密码不匹配", Toast.LENGTH_SHORT).show();
-
+            }else{
+                Toast.makeText(getApplicationContext(), "登录错误", Toast.LENGTH_SHORT).show();
             }
-        } catch (JSONException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (Exception e) {
+        }  catch (Exception e) {
             // TODO: handle exception
         }
     }
+    /**
+     * 将服务器返回的用户信息存入到SharedPreference中
+     * @author Marhong
+     * @time 2018/5/25 10:53
+     */
+    private void WriteUserInfo(JSONObject user) {
+        // TODO Auto-generated method stub
+        try {
+            SharedPreferences.Editor edit = userInf.edit();
+            edit.putString("userName", user.getString("userName"));
+            edit.putString("password", user.getString("password"));
+            edit.putString("signature", user.getString("signature"));
+            edit.putInt("victoryPoint", user.getInt("victoryPoint"));
+            edit.putInt("head",user.getInt("head"));
+            edit.putBoolean("keepLogin",true);
+            edit.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
+
+    }
     /**
      * 检查是否联网
      *
@@ -173,9 +224,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      */
     private boolean checkNetworkState() {
         boolean flag = false;
-//得到网络连接信息
+        //得到网络连接信息
         ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-//去进行判断网络是否连接
+        //去进行判断网络是否连接
         if (manager.getActiveNetworkInfo() != null) {
             flag = manager.getActiveNetworkInfo().isAvailable();
         }

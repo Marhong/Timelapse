@@ -118,8 +118,13 @@
         <activity
             android:name=".StartPage.LoginActivity"
             android:theme="@style/NoTitleBar" />
-        <activity android:name=".StartPage.RegisterActivity"
-            android:theme="@style/AppTheme" ></activity>
+        <activity
+            android:name=".StartPage.RegisterActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".person.PersonActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".person.RecordDetailActivity"></activity>
     </application>
 
 </manifest>

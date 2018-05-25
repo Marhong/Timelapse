@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 
 
 /**
- * 将输出流转为字符串
+ * 将输出流转为字符串;
  * @author Marhong
  * @time 2018/5/25 1:06
  */

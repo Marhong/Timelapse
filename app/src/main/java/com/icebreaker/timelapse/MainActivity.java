@@ -33,6 +33,7 @@ import com.icebreaker.timelapse.apppart.AppService;
 import com.icebreaker.timelapse.calendar.util.CustomDate;
 import com.icebreaker.timelapse.calendar.util.Util;
 import com.icebreaker.timelapse.calendar.view.MyCalendar;
+import com.icebreaker.timelapse.person.PersonActivity;
 import com.icebreaker.timelapse.util.AlarmUtils;
 import com.icebreaker.timelapse.util.CheckPermissionsActivity;
 import com.icebreaker.timelapse.util.MyDBOpenHelper;
@@ -47,7 +48,7 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
     private AppInfoHelper appInfoHelper;
     private int unlockCount = 0;
     private RelativeLayout mBarView;
-    private TextView app_date;
+    private TextView app_date,personalCenter;
     private PopupWindow popupWindow;
     private CustomDate myDate,startDate;
     private ViewPager calendar;
@@ -163,6 +164,9 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         actionBar.setDisplayShowCustomEnabled(true);
 
+        // 个人中心
+        personalCenter = (TextView)findViewById(R.id.personalCenter);
+        personalCenter.setOnClickListener(this);
     }
 
     /**
@@ -296,6 +300,10 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
                 break;
             case R.id.next_page:
                 startActivity(new Intent(MainActivity.this,AnalyseActivity.class));
+                finish();
+                break;
+            case R.id.personalCenter:
+                startActivity(new Intent(this, PersonActivity.class));
                 finish();
                 break;
         }
