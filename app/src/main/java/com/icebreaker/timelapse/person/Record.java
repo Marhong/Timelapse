@@ -6,14 +6,15 @@ package com.icebreaker.timelapse.person;
  * @time 2018/5/25 19:47
  */
 public class Record {
-    private long id;
-    private String initiator;
-    private String receiver;
-    private String time;
-    private int initiatorResult;
-    private int receiverResult;
-    private int iniUnfinishedNum;
-    private int recUnfinishedNum;
+    private long id; // 对战记录唯一编号
+    private String initiator; // 对战发起者名字
+    private String receiver; // 对战接受者名字
+    private String time; // 对战开始时间
+    private int initiatorResult; // 对战发起者的结果
+    private int receiverResult; // 对战接受者的结果
+    private int iniUnfinishedNum; // 对战发起者未达标数目
+    private int recUnfinishedNum; // 对战接受者未达标数目
+
     public Record(long id, String initiator, String receiver, String time, int initiatorResult, int receiverResult,int iniUnfinishedNum,int recUnfinishedNum) {
         this.id = id;
         this.initiator = initiator;
