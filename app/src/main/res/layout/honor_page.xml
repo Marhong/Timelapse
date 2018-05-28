@@ -234,6 +234,7 @@
                 android:id="@+id/curYear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:text="2018年"
                 android:textColor="@color/other_color"/>
         </LinearLayout>
@@ -247,7 +248,7 @@
                 android:text="进士 IV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"/>
+                android:textColor="@color/other_color"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -278,7 +279,7 @@
                     android:layout_marginLeft="5dp"
                     android:textColor="@color/other_color"/>
             </LinearLayout>
-            <com.icebreaker.timelapse.person.TextProgressBar
+            <com.icebreaker.timelapse.person.HonorTextProgressBar
                 android:id="@+id/progresss"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"

@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.icebreaker.timelapse.R;
 import com.icebreaker.timelapse.internet.HttpGetData;
+import com.icebreaker.timelapse.person.HonorTextProgressBar;
 import com.icebreaker.timelapse.person.PersonActivity;
 import com.icebreaker.timelapse.person.Record;
 import com.icebreaker.timelapse.person.RecordAdapter;
@@ -47,7 +48,7 @@ public class HonorFragment extends BaseFragment implements View.OnClickListener{
 //    战绩部分控件
     private ImageView imageRange;
     private TextView curYear,textRange,totalFights,leftVictoryPoint;
-    private TextProgressBar progressBar;
+    private HonorTextProgressBar progressBar;
     private Handler uiHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -64,7 +65,7 @@ public class HonorFragment extends BaseFragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO Auto-generated method stub
-        Log.e("我是荣誉模块","我运行了");
+
         View view = inflater.inflate(R.layout.honor_page, container, false);
         initViews(view);
         getCurUserHonor();
@@ -89,7 +90,7 @@ public class HonorFragment extends BaseFragment implements View.OnClickListener{
         textRange = (TextView)view.findViewById(R.id.textRange);
         totalFights = (TextView)view.findViewById(R.id.totalFights);
         leftVictoryPoint = (TextView)view.findViewById(R.id.leftVictoryPoint);
-        progressBar = (TextProgressBar)view.findViewById(R.id.progresss);
+        progressBar = (HonorTextProgressBar) view.findViewById(R.id.progresss);
     }
     /**
      * 获取当前用户的荣誉
@@ -200,7 +201,7 @@ public class HonorFragment extends BaseFragment implements View.OnClickListener{
                 slainNum.setBackgroundResource(R.drawable.unmaxslain);
             }
             Calendar calendar = Calendar.getInstance();
-            curYear.setText(String.valueOf(calendar.get(Calendar.YEAR)));
+            curYear.setText(String.valueOf(calendar.get(Calendar.YEAR))+"年");
 
                 // 展示总对战场次
                 totalFights.setText(String.valueOf(totalFightsNum) + "场");
@@ -287,16 +288,19 @@ public class HonorFragment extends BaseFragment implements View.OnClickListener{
                     }
                 }
                 // 展示胜率和获胜场次
-            NumberFormat nt = NumberFormat.getPercentInstance();
-            //设置百分数精确度0即不保留小数
-            nt.setMinimumFractionDigits(0);
-            double victoryProportion =(double)victoryFightsNum/(double)totalFightsNum;
+            progressBar.setMax(totalFightsNum);
+            progressBar.setProgress(victoryFightsNum);
 
-            int progress = Integer.parseInt(String.valueOf(100*victoryProportion));
-            Log.e("所占比例",String.valueOf(progress));
-            progressBar.setProgress(50);
-            String textOnProgress = String.valueOf(nt.format(victoryProportion))+" "+victoryFightsNum+"场";
-           // progressBar.setText(textOnProgress);
+//            NumberFormat nt = NumberFormat.getPercentInstance();
+//            //设置百分数精确度0即不保留小数
+//            nt.setMinimumFractionDigits(0);
+//            double victoryProportion =(double)victoryFightsNum/(double)totalFightsNum;
+//
+//            int progress = Integer.parseInt(String.valueOf(100*victoryProportion));
+//            Log.e("所占比例",String.valueOf(progress));
+//            progressBar.setProgress(50);
+//            String textOnProgress = String.valueOf(nt.format(victoryProportion))+" "+victoryFightsNum+"场";
+//           // progressBar.setText(textOnProgress);
         }catch (Exception e){
             e.printStackTrace();
         }
