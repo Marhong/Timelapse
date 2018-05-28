@@ -10,16 +10,18 @@ public class Record {
     private String initiator; // 对战发起者名字
     private String receiver; // 对战接受者名字
     private String time; // 对战开始时间
+    private String timestring; // 年月日组成，方便查询每日目标
     private int initiatorResult; // 对战发起者的结果
     private int receiverResult; // 对战接受者的结果
     private int iniUnfinishedNum; // 对战发起者未达标数目
     private int recUnfinishedNum; // 对战接受者未达标数目
 
-    public Record(long id, String initiator, String receiver, String time, int initiatorResult, int receiverResult,int iniUnfinishedNum,int recUnfinishedNum) {
+    public Record(long id, String initiator, String receiver, String time,String timestring, int initiatorResult, int receiverResult,int iniUnfinishedNum,int recUnfinishedNum) {
         this.id = id;
         this.initiator = initiator;
         this.receiver = receiver;
         this.time = time;
+        this.timestring = timestring;
         this.initiatorResult = initiatorResult;
         this.receiverResult = receiverResult;
         this.iniUnfinishedNum = iniUnfinishedNum;
@@ -56,6 +58,14 @@ public class Record {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getTimestring() {
+        return timestring;
+    }
+
+    public void setTimestring(String timestring) {
+        this.timestring = timestring;
     }
 
     public int getInitiatorResult() {

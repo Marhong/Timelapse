@@ -111,7 +111,7 @@ public class TodayFragment extends BaseFragment implements View.OnClickListener{
      * @time 2018/5/28 10:04
      */
     private void showTodayGoal(String goalString){
-        Log.e("JSONArray",goalString);
+        Log.e("每日目标数据",goalString);
 
         try{
             // 解析json数据

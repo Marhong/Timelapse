@@ -45,8 +45,8 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
     public RecordFragment recordFragment;
     public HonorFragment honorFragment;
     public TodayFragment todayFragment;
-    private View recordPage, honorPage, todayPage;
-    private ImageView imageRecord, imageHonor, imageToday;
+   // private View recordPage, honorPage, todayPage;
+   // private ImageView imageRecord, imageHonor, imageToday;
     private TextView textRecord, textHonor, textToday;
     private FragmentManager mFragmentManager;
     private FragmentTransaction mFragmentTransaction;
@@ -98,14 +98,14 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
         userInfo = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
         FragmentPage = getSharedPreferences("fragmentinfo", MODE_PRIVATE);
 
-        recordPage = findViewById(R.id.recordPage);
-        honorPage = findViewById(R.id.honorPage);
-        todayPage = findViewById(R.id.todayPage);
+//        recordPage = findViewById(R.id.recordPage);
+//        honorPage = findViewById(R.id.honorPage);
+//        todayPage = findViewById(R.id.todayPage);
 
 
-        imageRecord = (ImageView) findViewById(R.id.image_record);
-        imageHonor = (ImageView) findViewById(R.id.image_honor);
-        imageToday = (ImageView) findViewById(R.id.image_today);
+//        imageRecord = (ImageView) findViewById(R.id.image_record);
+//        imageHonor = (ImageView) findViewById(R.id.image_honor);
+//        imageToday = (ImageView) findViewById(R.id.image_today);
 
 
         textRecord = (TextView) findViewById(R.id.text_record);
@@ -124,9 +124,12 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
         mBack.setOnClickListener(this);
         mSetting.setOnClickListener(this);
         // ViewPage部分
-        recordPage.setOnClickListener(this);
-        honorPage.setOnClickListener(this);
-        todayPage.setOnClickListener(this);
+        textRecord.setOnClickListener(this);
+        textHonor.setOnClickListener(this);
+        textToday.setOnClickListener(this);
+//        recordPage.setOnClickListener(this);
+//        honorPage.setOnClickListener(this);
+//        todayPage.setOnClickListener(this);
     }
     /**
      * 从SharedPreference中读取当前页面
@@ -149,26 +152,26 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
         if (TextUtils.equals(tag, getString(R.string.str_record))) {
 
             textRecord.setTextColor(Color.rgb(251,2,5));
-            imageRecord.setVisibility(View.VISIBLE);
-            imageHonor.setVisibility(View.INVISIBLE);
-            imageToday.setVisibility(View.INVISIBLE);
+//            imageRecord.setVisibility(View.VISIBLE);
+//            imageHonor.setVisibility(View.INVISIBLE);
+//            imageToday.setVisibility(View.INVISIBLE);
             if (recordFragment == null) {
                 recordFragment = new RecordFragment();
             }
 
         } else if (TextUtils.equals(tag, getString(R.string.str_honor))) {
-            imageRecord.setVisibility(View.INVISIBLE);
-            imageHonor.setVisibility(View.VISIBLE);
-            imageToday.setVisibility(View.INVISIBLE);
+//            imageRecord.setVisibility(View.INVISIBLE);
+//            imageHonor.setVisibility(View.VISIBLE);
+//            imageToday.setVisibility(View.INVISIBLE);
             textHonor.setTextColor(Color.rgb(251,2,5));
             if (honorFragment == null) {
                 honorFragment = new HonorFragment();
             }
 
         } else if (TextUtils.equals(tag, getString(R.string.str_today))) {
-            imageRecord.setVisibility(View.INVISIBLE);
-            imageHonor.setVisibility(View.INVISIBLE);
-            imageToday.setVisibility(View.VISIBLE);
+//            imageRecord.setVisibility(View.INVISIBLE);
+//            imageHonor.setVisibility(View.INVISIBLE);
+//            imageToday.setVisibility(View.VISIBLE);
             textToday.setTextColor(Color.rgb(251,2,5));
             if (todayFragment == null) {
                 todayFragment = new TodayFragment();
@@ -208,9 +211,9 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
         textHonor.setTextColor(Color.parseColor("#82858b"));
 
         textToday.setTextColor(Color.parseColor("#82858b"));
-        imageRecord.setVisibility(View.VISIBLE);
-        imageHonor.setVisibility(View.INVISIBLE);
-        imageToday.setVisibility(View.INVISIBLE);
+//        imageRecord.setVisibility(View.VISIBLE);
+//        imageHonor.setVisibility(View.INVISIBLE);
+//        imageToday.setVisibility(View.INVISIBLE);
 
     }
     /**
@@ -321,15 +324,15 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.setting:
                 break;
-            case R.id.recordPage:
+            case R.id.text_record:
                 write(1);
                 setTabSelection(getString(R.string.str_record));
                 break;
-            case R.id.honorPage:
+            case R.id.text_honor:
                 write(2);
                 setTabSelection(getString(R.string.str_honor));
                 break;
-            case R.id.todayPage:
+            case R.id.text_today:
                 write(3);
                 setTabSelection(getString(R.string.str_today));
                 break;
@@ -410,5 +413,11 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
         // TODO Auto-generated method stub
         super.onDestroy();
         write(0);
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this,MainActivity.class));
+        finish();
     }
 }

@@ -54,7 +54,7 @@ public class HonorFragment extends BaseFragment implements View.OnClickListener{
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case GET_USER_HONOR:
-                    Log.e("沃日你打野asdf",msg.obj.toString());
+
                     showHonor(msg.obj.toString());
                     break;
                 default:
@@ -120,7 +120,7 @@ public class HonorFragment extends BaseFragment implements View.OnClickListener{
      * @time 2018/5/27 1:21
      */
     private void showHonor(String jsonString){
-        Log.e("JSONArray",jsonString);
+
         try{
             // 解析数据
             JSONObject honor = new JSONObject(jsonString);
