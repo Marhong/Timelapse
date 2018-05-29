@@ -1,16 +1,24 @@
 package com.icebreaker.timelapse.person;
 
+import android.app.ActionBar;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.githang.statusbar.StatusBarCompat;
 import com.icebreaker.timelapse.R;
 import com.icebreaker.timelapse.internet.HttpGetData;
 
@@ -26,10 +34,12 @@ import java.util.Calendar;
  * @author Marhong
  * @time 2018/5/28 16:43
  */
-public class RecordDetailActivity extends AppCompatActivity {
+public class RecordDetailActivity extends AppCompatActivity implements View.OnClickListener{
     private String userName;
     private int initiatorResult,receiverResult;
     private static final int GET_USER_GOAL = 1;
+    private RelativeLayout mBarView;
+    private ImageView mBack;
     // 我方部分控件
     private TextView textMyResult, textMyUnfinishedItems, myTotalTime, mySpareTime, mySocialTime, myStudyTime, myNewsTime, myOtherTime;
     private TextProgressBar myTotalTimePro, mySpareTimePro, mySocialTimePro, myStudyTimePro, myNewsTimePro, myOtherTimePro;
@@ -64,6 +74,16 @@ public class RecordDetailActivity extends AppCompatActivity {
      * @time 2018/5/28 18:09
      */
     private void initViews(){
+        // 初始化ActionBar
+        StatusBarCompat.setStatusBarColor(this, Color.WHITE);
+        mBarView = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.actionbar_record_detail,null);
+        mBack = (ImageView)mBarView.findViewById(R.id.back);
+        mBack.setOnClickListener(this);
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setCustomView(mBarView);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        actionBar.setDisplayShowCustomEnabled(true);
+
         SharedPreferences user = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
         userName = user.getString("userName",null);
         // 我方部分控件
@@ -148,13 +168,17 @@ public class RecordDetailActivity extends AppCompatActivity {
                 String id = initiator.getString("id");
                 if(initiatorResult == 1){
                     textMyResult.setText("我方胜");
+                    textMyResult.setTextColor(Color.rgb(0,255,127));
                 }else{
                     textMyResult.setText("我方败");
+                    textMyResult.setTextColor(Color.RED);
                 }
                 if(receiverResult == 1){
                     textRivalResult.setText(receiver.getString("userName")+" 胜");
+                    textRivalResult.setTextColor(Color.rgb(0,255,127));
                 }else{
                     textRivalResult.setText(receiver.getString("userName")+" 败");
+                    textRivalResult.setTextColor(Color.RED);
                 }
                 myPlanTotalTime = initiator.getInt("planTotalTime");
                 myPlanSpareTime = initiator.getInt("planSpareTime");
@@ -188,13 +212,17 @@ public class RecordDetailActivity extends AppCompatActivity {
             }else if(userName.equals(receiver.getString("userName"))){
                 if(receiverResult == 1){
                     textMyResult.setText("我方胜");
+                    textMyResult.setTextColor(Color.rgb(0,255,127));
                 }else{
                     textMyResult.setText("我方败");
+                    textMyResult.setTextColor(Color.RED);
                 }
                 if(initiatorResult == 1){
                     textRivalResult.setText(initiator.getString("userName")+" 胜");
+                    textRivalResult.setTextColor(Color.rgb(0,255,127));
                 }else{
                     textRivalResult.setText(initiator.getString("userName")+" 败");
+                    textRivalResult.setTextColor(Color.RED);
                 }
                 myPlanTotalTime = receiver.getInt("planTotalTime");
                 myPlanSpareTime = receiver.getInt("planSpareTime");
@@ -232,8 +260,14 @@ public class RecordDetailActivity extends AppCompatActivity {
             myStudyTime.setText(convertSecondToHour(myPlanStudyTime));
             myNewsTime.setText(convertSecondToHour(myPlanNewsTime));
             myOtherTime.setText(convertSecondToHour(myPlanOtherTime));
-            textMyUnfinishedItems.setText(myUnfinishedItems+"项");
 
+            if(myUnfinishedItems>0){
+                textMyUnfinishedItems.setText(myUnfinishedItems+"项");
+                textMyUnfinishedItems.setTextColor(Color.RED);
+            }else{
+                textMyUnfinishedItems.setText("全部达标");
+                textMyUnfinishedItems.setTextColor(Color.rgb(0,255,127));
+            }
             Resources resources = getResources();
             Drawable warnDrawable = resources.getDrawable(R.drawable.warnprogressbar);
             if(myActualTotalTime > myPlanTotalTime){
@@ -277,7 +311,14 @@ public class RecordDetailActivity extends AppCompatActivity {
             rivalStudyTime.setText(convertSecondToHour(rivalPlanStudyTime));
             rivalNewsTime.setText(convertSecondToHour(rivalPlanNewsTime));
             rivalOtherTime.setText(convertSecondToHour(rivalPlanOtherTime));
-            textRivalUnfinishedItems.setText(rivalUnfinishedItems+"项");
+            if(rivalUnfinishedItems>0){
+                textRivalUnfinishedItems.setText(rivalUnfinishedItems+"项");
+                textRivalUnfinishedItems.setTextColor(Color.RED);
+            }else{
+                textRivalUnfinishedItems.setText("全部达标");
+                textRivalUnfinishedItems.setTextColor(Color.rgb(0,255,127));
+            }
+
 
            // Resources resources = getResources();
            // Drawable warnDrawable = resources.getDrawable(R.drawable.warnprogressbar);
@@ -341,5 +382,15 @@ public class RecordDetailActivity extends AppCompatActivity {
         }
 
         return totalTime;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.back:
+                startActivity(new Intent(this,PersonActivity.class));
+                finish();
+                break;
+        }
     }
 }

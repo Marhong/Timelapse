@@ -124,7 +124,16 @@
         <activity
             android:name=".person.PersonActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".person.RecordDetailActivity"></activity>
+        <activity
+            android:name=".person.RecordDetailActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".person.SettingActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".person.EditSignatureActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".person.EditUserNameActivity"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

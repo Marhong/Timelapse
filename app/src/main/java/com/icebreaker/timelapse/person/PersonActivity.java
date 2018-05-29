@@ -47,7 +47,7 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
     public TodayFragment todayFragment;
    // private View recordPage, honorPage, todayPage;
    // private ImageView imageRecord, imageHonor, imageToday;
-    private TextView textRecord, textHonor, textToday;
+    private TextView textRecord, textHonor, textToday,textUserName,textUserSig;
     private FragmentManager mFragmentManager;
     private FragmentTransaction mFragmentTransaction;
     private int page = 0;
@@ -98,21 +98,14 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
         userInfo = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
         FragmentPage = getSharedPreferences("fragmentinfo", MODE_PRIVATE);
 
-//        recordPage = findViewById(R.id.recordPage);
-//        honorPage = findViewById(R.id.honorPage);
-//        todayPage = findViewById(R.id.todayPage);
-
-
-//        imageRecord = (ImageView) findViewById(R.id.image_record);
-//        imageHonor = (ImageView) findViewById(R.id.image_honor);
-//        imageToday = (ImageView) findViewById(R.id.image_today);
-
 
         textRecord = (TextView) findViewById(R.id.text_record);
         textHonor = (TextView) findViewById(R.id.text_honor);
         textToday = (TextView) findViewById(R.id.text_today);
-
-
+        textUserName = (TextView)findViewById(R.id.textUserName);
+        textUserSig =(TextView)findViewById(R.id.textUserSig);
+        textUserName.setText(userInfo.getString("userName","不过六级不改名"));
+        textUserSig.setText(userInfo.getString("signature","好好学习,天天向上"));
     }
     /**
      * 给所有控件设置监听器
@@ -323,6 +316,8 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
                 finish();
                 break;
             case R.id.setting:
+                startActivity(new Intent(this,SettingActivity.class));
+                finish();
                 break;
             case R.id.text_record:
                 write(1);

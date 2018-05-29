@@ -161,7 +161,7 @@ public class RecordFragment extends BaseFragment implements View.OnClickListener
         recordData.putInt("receiverResult",record.getReceiverResult());
         recordDetail.putExtra("recordData",recordData);
         startActivity(recordDetail);
-
+        getActivity().finish();
     }
 
     @Override

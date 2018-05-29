@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<ScrollView android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.icebreaker.timelapse.person.RecordDetailActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,17 +15,19 @@
         <TextView
             android:id="@+id/textMyResult"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:text="我方败"
             android:layout_alignParentLeft="true"
-            android:textSize="15dp"/>
+            android:gravity="center_vertical"
+            android:textSize="20dp"/>
         <TextView
             android:id="@+id/textMyUnfinishedItems"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15dp"
+            android:layout_height="30dp"
+            android:textSize="20dp"
             android:text="全部达标"
             android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
             android:layout_marginRight="10dp"/>
     </RelativeLayout>
 
@@ -282,12 +284,12 @@
             android:layout_height="wrap_content"
             android:text="我方败"
             android:layout_alignParentLeft="true"
-            android:textSize="15dp"/>
+            android:textSize="20dp"/>
         <TextView
             android:id="@+id/textRivalUnfinishedItems"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15dp"
+            android:textSize="20dp"
             android:text="全部达标"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"/>
@@ -532,5 +534,6 @@
             android:layout_marginRight="20dp"
             />
     </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
 
-</LinearLayout>
