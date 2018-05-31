@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.icebreaker.timelapse.R;
 import com.icebreaker.timelapse.internet.HttpGetData;
@@ -41,6 +42,7 @@ public class RecordFragment extends BaseFragment implements View.OnClickListener
     private RecordAdapter mAdapter;
     private ArrayList<Record> records;
     private String userName;
+    private TextView notice;
     private static final int GET_USER_RECORDS = 1;
     private Handler uiHandler = new Handler() {
         @Override
@@ -74,6 +76,7 @@ public class RecordFragment extends BaseFragment implements View.OnClickListener
         // TODO Auto-generated method stub
         mList = (ListView)view.findViewById(R.id.list);
         mList.setOnItemClickListener(this);
+        notice = (TextView)view.findViewById(R.id.notice);
     }
 
     /**
@@ -140,6 +143,9 @@ public class RecordFragment extends BaseFragment implements View.OnClickListener
 
                 mList.setAdapter(mAdapter);
                 mList.invalidate();
+                notice.setVisibility(View.INVISIBLE);
+            }else{
+                notice.setVisibility(View.VISIBLE);
             }
         }catch (Exception e){
             e.printStackTrace();

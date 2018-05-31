@@ -25,6 +25,7 @@ import com.icebreaker.timelapse.internet.HttpGetData;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -108,17 +109,26 @@ public class EditUserNameActivity extends AppCompatActivity implements View.OnCl
      */
     private void showResult(String result){
         Log.e("修改签名结果",result);
-        if(result.length()>=7){
-            Log.e("成功修改签名","修改成功");
-            Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
-            SharedPreferences.Editor editor = userinfo.edit();
-            editor.putString("userName",newUserName.getText().toString());
-            editor.commit();
-        }else{
-            Log.e("修改签名失败",result+"_"+SUCCESS);
-            Toast.makeText(this,"修改失败",Toast.LENGTH_SHORT).show();
-            newUserName.setText("");
+        try{
+            JSONObject object = new JSONObject(result);
+            String type = object.getString("type");
+            if(type.equals("success")){
+                Log.e("成功修改签名","修改成功");
+                Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
+                SharedPreferences.Editor editor = userinfo.edit();
+                editor.putString("userName",newUserName.getText().toString());
+                editor.commit();
+            }else if(type.equals("exist")){
+                Log.e("修改签名失败",result+"_"+SUCCESS);
+                Toast.makeText(this,"该用户名已存在",Toast.LENGTH_SHORT).show();
+                newUserName.setText("");
+            }else{
+                Toast.makeText(this,"修改失败",Toast.LENGTH_SHORT).show();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
     }
     @Override
     public void onClick(View v) {

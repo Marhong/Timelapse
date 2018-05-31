@@ -26,6 +26,7 @@ import com.icebreaker.timelapse.internet.HttpGetData;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -114,17 +115,24 @@ public class EditSignatureActivity extends AppCompatActivity implements View.OnC
      */
     private void showResult(String result){
         Log.e("修改签名结果",result);
-        if(result.length()>0){
-            Log.e("成功修改签名","修改成功");
-            Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
-            SharedPreferences.Editor editor = userinfo.edit();
-            editor.putString("signature",newSignature.getText().toString());
-            editor.commit();
-        }else{
-            Log.e("修改签名失败",result+"_"+SUCCESS);
-            Toast.makeText(this,"修改签名失败",Toast.LENGTH_SHORT).show();
-            newSignature.setText("");
+        try{
+            JSONObject object = new JSONObject(result);
+            String type = object.getString("type");
+            if(type.equals("success")){
+                Log.e("成功修改签名","修改成功");
+                Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
+                SharedPreferences.Editor editor = userinfo.edit();
+                editor.putString("signature",newSignature.getText().toString());
+                editor.commit();
+            }else{
+                Log.e("修改签名失败",result+"_"+SUCCESS);
+                Toast.makeText(this,"修改签名失败",Toast.LENGTH_SHORT).show();
+                newSignature.setText("");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
     }
     @Override
     public void onClick(View v) {

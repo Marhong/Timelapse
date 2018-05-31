@@ -291,16 +291,6 @@ public class HonorFragment extends BaseFragment implements View.OnClickListener{
             progressBar.setMax(totalFightsNum);
             progressBar.setProgress(victoryFightsNum);
 
-//            NumberFormat nt = NumberFormat.getPercentInstance();
-//            //设置百分数精确度0即不保留小数
-//            nt.setMinimumFractionDigits(0);
-//            double victoryProportion =(double)victoryFightsNum/(double)totalFightsNum;
-//
-//            int progress = Integer.parseInt(String.valueOf(100*victoryProportion));
-//            Log.e("所占比例",String.valueOf(progress));
-//            progressBar.setProgress(50);
-//            String textOnProgress = String.valueOf(nt.format(victoryProportion))+" "+victoryFightsNum+"场";
-//           // progressBar.setText(textOnProgress);
         }catch (Exception e){
             e.printStackTrace();
         }

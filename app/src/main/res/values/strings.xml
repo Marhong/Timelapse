@@ -43,7 +43,9 @@
     <string name="register">注册</string>
     <string name="login">登录</string>
     <!--注册界面-->
-    <string name="nextStep">下一步</string>
+    <string name="nextStep">完成</string>
+    <string name="signatureHint">请输入个性签名</string>
+    <string name="signature">个性签名</string>
     <!--个人中心界面-->
     <string name="str_record">战绩</string>
     <string name="str_honor">荣誉</string>
